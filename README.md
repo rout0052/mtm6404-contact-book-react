@@ -1,4 +1,15 @@
-# Contact Book
+# MTM6404 - Contact Book Assignment
 
-## Objective
-Use what you have learned about React, React Router, and Firestore to create a contact book web application, which allows a user to see and search through all contacts, add new contacts, and edit and delete existing contacts.
+### Created by Taro Routly, student number 041126214
+
+**JS Framework**: React, React Router
+
+**Build Tool**: Vite
+
+**CSS Framework**: Tailwind CSS
+
+**UI Kit**: DaisyUI
+
+**Icons**: Font Awesome
+
+*Note: The contact book items are inspired by the Dungeons & Dragons 5e podcast [Not Another DND Podcast](https://naddpod.com/)* 
