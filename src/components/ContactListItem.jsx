@@ -5,7 +5,7 @@ import ViewButton from './buttons/ViewButton.jsx';
 import DeleteButton from './buttons/DeleteButton.jsx';
 import EditButton from './buttons/EditButton.jsx';
 
-const ContactListItem = ({contact}) => {
+const ContactListItem = ({contact, refreshContacts}) => {
 
     return (
         <li className="list-row items-center hover:bg-neutral-50">
@@ -13,7 +13,7 @@ const ContactListItem = ({contact}) => {
             <div className="flex flex-wrap justify-end gap-2">
                 <ViewButton id={contact.id} isCircle={ true } />
                 <EditButton id={contact.id} isCircle={ true } />
-                <DeleteButton id={contact.id} isCircle={ true } />
+                <DeleteButton id={contact.id} isCircle={ true } refreshContacts={refreshContacts} />
             </div>
         </li >
     )
