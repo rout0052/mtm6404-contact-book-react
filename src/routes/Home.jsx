@@ -28,7 +28,6 @@ const Home = () => {
 
     useEffect(() => {
     }, [contacts])
-    
 
     // Filters the contacts array. The boolean of filterByLastName changes what the contact array is being filtered by
     const filterContacts = (contacts, filterByLastName) => {
@@ -74,7 +73,7 @@ const Home = () => {
                                 name="filter" onClick={() => (filterHandler(false))}/>
                             <input type="radio" aria-label="Sort by Last Name"
                                 className="btn checked:bg-red-800 checked:text-white checked:border-red-900 checked:shadow-red-950 shadow-error"
-                                name="filter" onClick={() => (filterHandler(true))} defaultChecked={true} />
+                                name="filter" id="sortByLastName" onClick={() => (filterHandler(true))} defaultChecked={true} />
                         </div>
                     </div>
                     <button className="btn btn-neutral rounded-full" onClick={() => document.getElementById('addContactModal').showModal()}>
@@ -88,7 +87,7 @@ const Home = () => {
                 ))}
             </ul>
 
-            <AddContactModal />
+            <AddContactModal refreshContacts={fetchUsers}  />
 
         </>
     )
