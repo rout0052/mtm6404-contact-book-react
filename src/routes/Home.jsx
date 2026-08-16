@@ -17,7 +17,7 @@ const Home = () => {
             ...doc.data()
         }));
 
-        setContacts(filterContacts(data, true));
+        filterContacts(data, true);
     }
 
     // Leave dependency array empty to run when page loads
@@ -27,25 +27,31 @@ const Home = () => {
 
 
     useEffect(() => {
-
     }, [contacts])
     
 
     // Filters the contacts array. The boolean of filterByLastName changes what the contact array is being filtered by
     const filterContacts = (contacts, filterByLastName) => {
+        // In react, arrays in a state are unmutable, and therefore cannot be sorted like a usual JS array, which i found out by reading this part of the react documentation: https://react.dev/learn/updating-arrays-in-state#making-other-changes-to-an-array . So instead, I make a copy of the array, then set the contacts equal to that
+        const contactsCopy = [...contacts];
+        
         // If filtering by lastName
         if (filterByLastName) {
             // Kinda obvious, but filter by last name
-            return contacts.sort(function (a, b) {
+            setContacts(contactsCopy.sort(function (a, b) {
                 return a.lastName.localeCompare(b.lastName);
-            })
+            })) 
             // If filtering by firstName (the only other option)
         } else {
             // Filters by firstName
-            return contacts.sort(function (a, b) {
+            setContacts(contactsCopy.sort(function (a, b) {
                 return a.firstName.localeCompare(b.firstName);
-            })
+            })) 
         }
+    }
+
+    const filterHandler = (byLastName) => {
+        filterContacts(contacts, byLastName);
     }
 
 
@@ -65,10 +71,10 @@ const Home = () => {
                         <div className="flex flex-wrap justify-end gap-2 filter-controls">
                             <input type="radio" aria-label="Sort by First Name"
                                 className="btn checked:bg-red-800 checked:text-white checked:border-red-900 checked:shadow-red-950 "
-                                name="filter" onClick={() => (console.log("Sort by first name"))}/>
+                                name="filter" onClick={() => (filterHandler(false))}/>
                             <input type="radio" aria-label="Sort by Last Name"
                                 className="btn checked:bg-red-800 checked:text-white checked:border-red-900 checked:shadow-red-950 shadow-error"
-                                name="filter" onClick={() => (console.log("Sort by last name"))} defaultChecked={true} />
+                                name="filter" onClick={() => (filterHandler(true))} defaultChecked={true} />
                         </div>
                     </div>
                     <button className="btn btn-neutral rounded-full" onClick={() => document.getElementById('addContactModal').showModal()}>
