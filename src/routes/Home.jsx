@@ -14,6 +14,9 @@ const Home = () => {
     // Sets up state to hold the contacts
     const [contacts, setContacts] = useState([]);
 
+    // Sets up a state for the search input, by default an empty string
+    const [searchText, setSearchText] = useState('');
+
     // Leave dependency array empty to run when page loads
     useEffect(() => {
         fetchUsers();
@@ -24,15 +27,30 @@ const Home = () => {
         // Fetches the docs
         const docSnapshot = await getDocs(collection(db, 'contacts'))
 
-        // Maps each doc into the object structure, using the id then spreading the data 
+        // Maps each doc into the object structure, using the id then spreading the data. The fullName key value pair is added to make the filtering later easier. 
         const data = docSnapshot.docs.map(doc => ({
             id: doc.id,
+            fullName: `${doc.data().firstName} ${doc.data().lastName}`,
             ...doc.data()
         }));
 
-        setContacts(data.sort(function (a, b) {
+        filterContacts(data)
+    }
+
+
+    // Filters the contacts array.
+    const filterContacts = (contacts) => {
+        // In react, arrays in a state are unmutable, and therefore cannot be sorted like a usual JS array, which i found out by reading this part of the react documentation: https://react.dev/learn/updating-arrays-in-state#making-other-changes-to-an-array . So instead, I make a copy of the array, then set the contacts equal to that
+        const contactsCopy = [...contacts];
+
+        setContacts(contactsCopy.sort(function (a, b) {
             return a.lastName.localeCompare(b.lastName);
         }))
+    }
+
+    // Updates the searchText state every time there is a change in the search text
+    const handleSearchChange = (e) => {
+        setSearchText(e.target.value);
     }
 
     return (
@@ -49,16 +67,16 @@ const Home = () => {
                     <button className="btn btn-neutral rounded-full" onClick={() => document.getElementById('addContactModal').showModal()}>
                         <i className="fa-solid fa-plus"></i> Add Contact
                     </button>
-                    
+
                     <label className="input">
                         <i className="fa-solid fa-magnifying-glass"></i>
-                        <input type="search" className="grow" placeholder="Search" />
+                        <input type="search" className="grow" placeholder="Search" value={searchText} onChange={handleSearchChange} />
                     </label>
                 </li>
 
-                {/* When contacts exists, maps through the contacts making a list item  */}
-                {contacts && contacts.map(contact => (
-                    <ContactListItem key={contact.id} contact={contact} />
+                {/* When contacts exists, filter the array by the search team using the added fullName entry (set to lower case to ignore case), then map through the remaining contacts making a list item  */}
+                {contacts && contacts.filter(contact => (contact.fullName.toLowerCase().includes(searchText.toLowerCase()))).map(contact => (
+                    <ContactListItem key={contact.id} contact={contact} refreshContacts={fetchUsers}/>
                 ))}
             </ul>
 
