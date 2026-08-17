@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-
+// Sets up the firebase config, importing the API key from env
 const firebaseConfig = {
 
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -19,7 +19,10 @@ const firebaseConfig = {
 
 };
 
+// Sets up the app using the config
 const app = initializeApp(firebaseConfig);
+
+// Stores the getFirestore to pull the db records from
 const db = getFirestore(app);
 
 export default db;
