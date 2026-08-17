@@ -22,6 +22,11 @@ const Home = () => {
         fetchUsers();
     }, [])
 
+    // Updates the searchText state every time there is a change in the search text
+    const handleSearchChange = (e) => {
+        setSearchText(e.target.value);
+    }
+
     // Fetches the user from the database, and uses the filterContacts to setContacts
     const fetchUsers = async () => {
         // Fetches the docs
@@ -37,7 +42,6 @@ const Home = () => {
         filterContacts(data)
     }
 
-
     // Filters the contacts array.
     const filterContacts = (contacts) => {
         // In react, arrays in a state are unmutable, and therefore cannot be sorted like a usual JS array, which i found out by reading this part of the react documentation: https://react.dev/learn/updating-arrays-in-state#making-other-changes-to-an-array . So instead, I make a copy of the array, then set the contacts equal to that
@@ -46,11 +50,6 @@ const Home = () => {
         setContacts(contactsCopy.sort(function (a, b) {
             return a.lastName.localeCompare(b.lastName);
         }))
-    }
-
-    // Updates the searchText state every time there is a change in the search text
-    const handleSearchChange = (e) => {
-        setSearchText(e.target.value);
     }
 
     return (
@@ -76,13 +75,12 @@ const Home = () => {
 
                 {/* When contacts exists, filter the array by the search team using the added fullName entry (set to lower case to ignore case), then map through the remaining contacts making a list item  */}
                 {contacts && contacts.filter(contact => (contact.fullName.toLowerCase().includes(searchText.toLowerCase()))).map(contact => (
-                    <ContactListItem key={contact.id} contact={contact} refreshContacts={fetchUsers}/>
+                    <ContactListItem key={contact.id} contact={contact} refreshContacts={fetchUsers} />
                 ))}
             </ul>
 
             {/* Adds the modal, and passes down the fetchUsers function for the deletebutton */}
             <AddContactModal refreshContacts={fetchUsers} />
-
         </>
     )
 }
