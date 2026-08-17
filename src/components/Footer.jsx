@@ -1,9 +1,5 @@
-
-
 const Footer = () => {
-
-
-
+    // Standard footer with information about the project
     return (
         <footer className="pt-6 pb-12 px-4 md:px-12 lg:px-20 text-xs bg-red-950 text-white flex flex-col gap-4">
             <p>Contact Information inspired by <a className="font-bold underline underline-offset-4" href="https://naddpod.com/">Not Another DND Podcast</a></p>
@@ -14,7 +10,5 @@ const Footer = () => {
         </footer>
     )
 }
-
-
 
 export default Footer;

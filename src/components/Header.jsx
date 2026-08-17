@@ -1,7 +1,8 @@
+// Imports navigation link
 import { NavLink } from 'react-router-dom'
 
 const Header = () => {
-
+    // Standard header, with a link back to the homepage
     return (
         <header className="sticky top-0 shadow-lg bg-red-950 z-10">
             <nav className="navbar flex justify-between px-4 md:px-12 lg:px-20">

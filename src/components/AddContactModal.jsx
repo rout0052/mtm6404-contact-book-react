@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+// Imports hooks and functions from the node modules
+import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 
+// Imports the firebase app database reference
 import db from '../utils/db.js';
 
-
 const AddContactModal = ({ refreshContacts }) => {
-
+    // Adds empty form data as a state to update with the form
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -19,7 +20,9 @@ const AddContactModal = ({ refreshContacts }) => {
         familiar: ''
     });
 
+    // Handler function on changing the forms content to update the contact
     const handleChange = (e) => {
+        // Sets the contact using the event target's name and value, while spreading the rest of the data that is unchanged
         setFormData(prevData => {
             return {
                 ...prevData,
@@ -28,13 +31,18 @@ const AddContactModal = ({ refreshContacts }) => {
         })
     }
 
+    // Handler function to add the new contact to the database
     const handleSaveContact = (e) => {
+        // Prevents the form from submitting and refreshing the page
         e.preventDefault();
         
+        // Gets the collection from the db
         const col = collection(db, "contacts")
 
+        // Adds a new document to the col, passing the formData
         addDoc(col, formData);
 
+        // Clears the form data
         setFormData({
             firstName: '',
             lastName: '',
@@ -48,10 +56,13 @@ const AddContactModal = ({ refreshContacts }) => {
             familiar: ''
         })
 
+        // Refreshes the contacts to sort them
         refreshContacts();
 
+        // Clicks the sort button to sort the refreshed list by last name
         document.getElementById('sortByLastName').click();
 
+        // Closes the modal
         document.getElementById('addContactModal').close();
     }
 
@@ -129,5 +140,6 @@ const AddContactModal = ({ refreshContacts }) => {
         </dialog>
     )
 }
+
 
 export default AddContactModal;
