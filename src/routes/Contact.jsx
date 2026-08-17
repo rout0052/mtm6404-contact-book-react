@@ -99,10 +99,7 @@ const Contact = () => {
                         className="alert alert-error alert-soft border-red-500 border-2 max-w-lg mx-auto text-center my-6">
                         <i className="fa-solid fa-circle-question text-2xl"></i>
                         <p><strong>Uh oh! </strong>Looks like there's no more information about this contact. Maybe add some more with the <span className="font-bold">Edit Contact <i className="fa-solid fa-pencil"></i></span> button above.</p>
-                    </div> }
-
-                    
-                    
+                    </div> }   
                 </div>
             </article>
         </>
