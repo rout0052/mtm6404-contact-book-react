@@ -7,6 +7,7 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    {/* Wraps the App in the RouterProvider to use the router in the app */}
     <RouterProvider router={ router }>
       <App />
     </RouterProvider>
