@@ -24,8 +24,6 @@ const DeleteButton = ({ id, isCircle, refreshContacts, children }) => {
                 // If refreshContacts exists, refresh the contacts
                 if(refreshContacts) {
                     refreshContacts();
-                    // Also click the sort by last name button to resort them without messing up which button is checked
-                    document.getElementById('sortByLastName').click();
                 }
 
                 // Uses router navigation to go to home page

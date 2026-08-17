@@ -59,9 +59,6 @@ const AddContactModal = ({ refreshContacts }) => {
         // Refreshes the contacts to sort them
         refreshContacts();
 
-        // Clicks the sort button to sort the refreshed list by last name
-        document.getElementById('sortByLastName').click();
-
         // Closes the modal
         document.getElementById('addContactModal').close();
     }
